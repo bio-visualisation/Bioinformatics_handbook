@@ -1,0 +1,393 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Codes: A Journey to Dive into Biological Information",
+    "section": "",
+    "text": "Preface\nFor last four years I have been actively involved in all bioinformatics projects in our lab. In the beginning of my career I have never imagined myself to become a bioinformatician. I was and am a trained molecular biologist. Cell culture, cloning, animal handling and gene expression studies are my domain area. When I joined my lab as a graduate student I saw that my seniors and PI were utterly frustrated with the bioinformatics service provided by the well known NGS analytics industries in India. Industries never paid attention to the biological questions being addressed by the project. There was a real need of a person who had the necessary computational expertise to handle the NGS data as well as understands the biological questions thoroughly. So I invested time during the lab hours to understand the biological questions and learned new molecular techniques. When I came to hostel and mostly during weekends I invested full time to learn about NGS analysis. Weekends have shaped me what I am today. Obviously that came at a cost of personal life. I owe a lot to my closer ones who always had a complaint that I never gave them my time.\nHere, in this book I have documented my journey to stitch the code blocks and several resources which I think may help others who are on the same path. I believe that this text will enable the learners to transition from learning to do their own biological data analysis.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "Introduction",
+    "section": "",
+    "text": "Biological data analysis\nThis is a handbook of data analysis in the field of Biology. The main aim of this text is to introduce the concepts of the followings.\nBy virtue of its requirement there is also a need to introduce\nIn due course, I will refer to the relevant resources for further reading. There are enough books which provide with detailed introduction and theory behind every topic. My purpose is not to repeat the same but to give you a full flavor of hands-on bioinformatics with lots of unix commands and R code blocks and resulting data visualization. I will try to make the codes as simple as possible and add meaning of the code block as and when required. Still I urge you that in any section or any code block that you cannot execute or becoming difficult to understand please contact me. I am always available to help.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "intro.html#biological-data-analysis",
+    "href": "intro.html#biological-data-analysis",
+    "title": "Introduction",
+    "section": "",
+    "text": "Introduction to unix\nIntroduction to R for Biologists\nData wrangling and data visualization\nRNA-Seq analysis\nSingle-cell RNA-Seq analysis\n\n\n\nManaging Conda environment\nGit and Github\nShiny web application\nContainerized Bioinformatics",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "conda.html",
+    "href": "conda.html",
+    "title": "1  Conda environment",
+    "section": "",
+    "text": "1.1 Introduction",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Conda environment</span>"
+    ]
+  },
+  {
+    "objectID": "conda.html#introduction",
+    "href": "conda.html#introduction",
+    "title": "1  Conda environment",
+    "section": "",
+    "text": "conda is a package manager where users can easily find and install thousands of packages.\nIt is also an environment manager which can create a separate environment within a few seconds which runs on different dependencies.\nIt is compatible with multiple OS.\nMiniconda (minimal version of conda) can be downloaded as a script file (.sh) from the given link and installed using the following command.\nDownload Miniconda (file size ~ 2.36 Mb)\n\nwget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh\n\nInstall Miniconda\n\nbash Miniconda3-latest-Linux-x86_64.sh\n\n\nPress ENTER\n\n\n\nType yes\n\n\n\nPress ENTER\n\n\n\nThis means every time you open your terminal, it will initialize conda by default.\nType yes. If you wish to reverse it later, you can do it.\nThe Miniconda installation process is complete. Close the terminal and open again.\n\n\n\n(base) at the command prompt indicate conda base environment is active.\nFor basic conda commands, you can follow this link. Conda commands\nThis installation process would create a directory called miniconda3 which would have all the installed packages as well as the environment dependencies.\n\n\n\n\n\n\n\nWarning\n\n\n\nPlease do not delete ‘miniconda3’ directory. Deleting this directory would remove conda environment.",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Conda environment</span>"
+    ]
+  },
+  {
+    "objectID": "conda.html#create-a-conda-environment-with-required-packages",
+    "href": "conda.html#create-a-conda-environment-with-required-packages",
+    "title": "1  Conda environment",
+    "section": "1.2 Create a conda environment with required packages",
+    "text": "1.2 Create a conda environment with required packages\n\nHere I want to create a conda environment with all packages required for RNA-Seq analysis. The details of the packages will be discussed in the next section.\nENV Name - rnaSeq\nPackages: fastqc, trim-galore, star, subread, multiqc\nPackages to be installed from bioconda channel.\n\nconda create --name rnaSeq -c bioconda fastqc trim-galore star subread multiqc\n\nThe process may take several minutes depending on the network speed.\n\n\n#List conda environments\nconda env list\n\n\nTo activate our desired environment, run the following command.\n\nconda activate rnaSeq\n\n\nCheck whether our desired packages are installed or not. For example check trim-galore.\n\nconda list | grep trim-galore\n\n\nIn the next section, we shall discuss about using remote HPC server.",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Conda environment</span>"
+    ]
+  },
+  {
+    "objectID": "unix.html",
+    "href": "unix.html",
+    "title": "2  Connect to a remote unix computer",
+    "section": "",
+    "text": "2.1 Getting Started\nIn this section we shall learn how to connect to a unix machine with ssh and run few basic commands. Later I shall introduce with the concept of bash scripting.",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Connect to a remote unix computer</span>"
+    ]
+  },
+  {
+    "objectID": "unix.html#getting-started",
+    "href": "unix.html#getting-started",
+    "title": "2  Connect to a remote unix computer",
+    "section": "",
+    "text": "Fire up your terminal and execute the following code.\n\nssh userid@ipaddress\n\nHere userid can be a short name which was used to create an account on the HPC server. Example: rohit\nIP address is a numerical identifier of a system. Example: 213.253.210.118\nPlease ask your network administrator for these details before proceeding.\nNext it would ask for password\n\nuserid@ipaddress's password:\n\nAfter I entered my password it displayed like this.\n\n(base) basu@darwin:~$ \n\n\n\n\n\n\nTip\n\n\n\nIf you are new to unix computer, then you are recommended to be familiar with the basic commands of unix. Check this link for Basic unix commands If you are not sure what a command means/does? Type it here and get a very easy to understand explanation. explainshell.com",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Connect to a remote unix computer</span>"
+    ]
+  },
+  {
+    "objectID": "package.html",
+    "href": "package.html",
+    "title": "3  Package Installation",
+    "section": "",
+    "text": "3.1 Install FastQC",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Package Installation</span>"
+    ]
+  },
+  {
+    "objectID": "package.html#install-fastqc",
+    "href": "package.html#install-fastqc",
+    "title": "3  Package Installation",
+    "section": "",
+    "text": "The first step of RNA_Seq data analysis is to check the quality of the sequencing data in .fastq/.fq file format.\nFastQC is the commonly used tool to perform quality control.\n\nconda install -c bioconda fastqc\n\nTo check whether installation is complete or not, just type in the terminal the following.\n\nfastqc -h",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Package Installation</span>"
+    ]
+  },
+  {
+    "objectID": "package.html#install-trim-galore",
+    "href": "package.html#install-trim-galore",
+    "title": "3  Package Installation",
+    "section": "3.2 Install Trim galore",
+    "text": "3.2 Install Trim galore\n\nTrim Galore! is a wrapper script to automate quality and adapter trimming as well as quality control.\nIf adapter content is found then adapter should be removed using Trim Galore.\n\nconda install -c bioconda trim-galore\n\nTo check the successful installation\n\ntrim_galore -help",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Package Installation</span>"
+    ]
+  },
+  {
+    "objectID": "package.html#install-star-aligner",
+    "href": "package.html#install-star-aligner",
+    "title": "3  Package Installation",
+    "section": "3.3 Install STAR aligner",
+    "text": "3.3 Install STAR aligner\n\nThe alignment process involves performing the read alignment using one of several splice-aware alignment tools such as STAR or HISAT2.\nThe choice of aligner is often a personal preference and also dependent on the computational resources.\n\nconda install -c bioconda star\n\nSTAR -h",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Package Installation</span>"
+    ]
+  },
+  {
+    "objectID": "package.html#install-subread",
+    "href": "package.html#install-subread",
+    "title": "3  Package Installation",
+    "section": "3.4 Install subread",
+    "text": "3.4 Install subread\n\nOnce alignment is complete, the next step would be to count of aligned reads to each gene.\nfeatureCounts is a part of the subread toolkit which is used for this purpose.\n\nconda install -c bioconda subread\n\nfeatureCounts -h\n\n\n\n\n\n\nNote\n\n\n\nInitial QC to be done using FastQC, followed by trimming with TrimGalore!. Reads will be aligned using STAR and overlaps to be counted with featureCounts.",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Package Installation</span>"
+    ]
+  },
+  {
+    "objectID": "package.html#install-multiqc",
+    "href": "package.html#install-multiqc",
+    "title": "3  Package Installation",
+    "section": "3.5 Install MultiQC",
+    "text": "3.5 Install MultiQC\n\nMultiQC searches a given directory for analysis logs and compiles a HTML report. It’s a general use tool, perfect for summarising the output from numerous bioinformatics tools.\n\nconda install -c bioconda multiqc\n\nmultiqc -h",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Package Installation</span>"
+    ]
+  },
+  {
+    "objectID": "seqQC.html",
+    "href": "seqQC.html",
+    "title": "4  Quality Control of The Sequencing Reads",
+    "section": "",
+    "text": "4.1 Activate conda environment",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Quality Control of The Sequencing Reads</span>"
+    ]
+  },
+  {
+    "objectID": "seqQC.html#activate-conda-environment",
+    "href": "seqQC.html#activate-conda-environment",
+    "title": "4  Quality Control of The Sequencing Reads",
+    "section": "",
+    "text": "conda activate rnaSeq",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Quality Control of The Sequencing Reads</span>"
+    ]
+  },
+  {
+    "objectID": "seqQC.html#run-fastqc",
+    "href": "seqQC.html#run-fastqc",
+    "title": "4  Quality Control of The Sequencing Reads",
+    "section": "4.2 Run FastQC",
+    "text": "4.2 Run FastQC\n\nRaw sequencing data is stored in any one of the formats listed i.e., .fastq/.fastq.gz/.fq.gz\nQuality checking of the raw data is the first step to be performed before proceeding with further analysis.\nTake a look at the example of a good illumina data.\nTake a look at the example of a bad illumina data.\nNow, let’s jump to analyse our own data.\n\n#Make a directory for the fastq files\n\nmkdir fastq/\n\n#Move all the fastq files into that recently created directory\n\nmv *.fastq.gz fastq/\n\nCreate a directory where fastqc output will be stored\n\nmkdir fastqc_out/\n\nRUN FastQC\n\nfastqc -o fastqc_out/ -t 8 fastq/*.fastq.gz\n\n# -t (--threads) specifies the number of threads for parallel computing\n\nCheck the fastqc output .html files stored in fastqc_out directory. Transfer the .html files to local computer using either WinSCP or FileZilla.\nIf adapter content is found or sequence quality is suboptimal then those sequence need to be trimmed using trim_galore.\nCreate a directory where trimmed fastq files will be stored.\n\nmkdir trim_galore/\n\nIf you want to remove the adapter content, run Trim Galore.",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Quality Control of The Sequencing Reads</span>"
+    ]
+  },
+  {
+    "objectID": "seqQC.html#run-trim-galore",
+    "href": "seqQC.html#run-trim-galore",
+    "title": "4  Quality Control of The Sequencing Reads",
+    "section": "4.3 Run Trim Galore!",
+    "text": "4.3 Run Trim Galore!\n\nBefore that we want to check our bash script. Execute the following command and check the output\n\nfor filename in fastq/*_R1.fastq.gz\ndo\nbase=$(basename $filename _R1.fastq.gz)\necho \"Running alignment for ${base} using STAR\"\ndone\n\nIf everything looks okay then we have create a file, trim-galore.sh\n\nvim trim-galore.sh\n\nInsert the following script by pressing ‘I’ in your keyboard (meaning insert). Paste the following script. Press Esc and then type :wq to save. Later make the file executable.\n\n chmod +x trim-galore.sh\n \n bash trim-galore.sh\n#!/bin/bash/\nfor filename in fastq/*_R1.fastq.gz\ndo\nbase=$(basename $filename _R1.fastq.gz)\n\ntrim_galore --illumina --paired -j 8 \\\n--fastqc -o trim_galore/ fastq/${base}_R1.fastq.gz\\\nfastq/${base}_R2.fastq.gz\ndone\n\n–ilumina : Adapter sequence to be trimmed of illumina universal adapter. –paired: Trimming for paired end files. -j :Number of cores to be used for trimming. –fastqc : Once trimming is complete, run fastqc in default mode. -o :Output directory\n\n\n\n\n\n\n\nNote\n\n\n\nThe output of the above trimming command will have varied read length. For some sequencing data analysis (i.e., CIRI pipeline) it is not advisable to have varied read length. For differential gene expression analysis it is not an issue.\n\n\n\nIn any case, if you require to remove adapter and have uniform read length then we can use --hardtrim5 option in trim_galore.\n\n\ntrim_galore -j 8 --hardtrim5 100 -o trim_galore/ fastq/*.fastq.gz\n\n# --hardtrim5 &lt;int&gt; will retain &lt;int&gt; bases from the 5' end of the sequence.\n\nAfter running trim-galore, it would create .html files which contain QC data and the trimmed fastq files as .fq.gz\nIf you want to clean and categorize your data then move the trimmed fastq files to a new directory.\n\n\n\n\n\n\n\nTip\n\n\n\n\n\ncd trim_galore/\nmkdir fastq/\nmv *.fq.gz fastq/\n\n\n\n\nDid you notice that all trimmed fastq files have names with a string ‘trimmed’ or ‘val_1’? Next, I want to remove the string ‘trimmed’ from all file names.\nHere is my solution. But before looking into this you can try your own ways.\n\n\n\n\n\n\n\nTip\n\n\n\n\n\ncd fastq/\n# Now remove the string '_trimmed' from all file names\n\nfor file in *;do mv \"${file}\" \"${file/_trimmed/}\";done",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Quality Control of The Sequencing Reads</span>"
+    ]
+  },
+  {
+    "objectID": "seqAlign.html",
+    "href": "seqAlign.html",
+    "title": "5  Alignment to The Reference Genome",
+    "section": "",
+    "text": "5.1 Download reference genome and annotation file",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Alignment to The Reference Genome</span>"
+    ]
+  },
+  {
+    "objectID": "seqAlign.html#download-reference-genome-and-annotation-file",
+    "href": "seqAlign.html#download-reference-genome-and-annotation-file",
+    "title": "5  Alignment to The Reference Genome",
+    "section": "",
+    "text": "Human reference genome\n\nmkdir hg38/\n\ncd hg38/\n\nwget http://hgdownload.soe.ucsc.edu/\\\ngoldenPath/hg38/bigZips/hg38.fa.gz\n\nwget https://hgdownload.soe.ucsc.edu/\\\ngoldenPath/hg38/bigZips/genes/hg38.refGene.gtf.gz\n\nMouse Reference Genome\n\nmkdir mm39/\n\ncd mm39/\n\nwget https://hgdownload.soe.ucsc.edu/\\\ngoldenPath/mm39/bigZips/mm39.fa.gz\n \nwget https://hgdownload.soe.ucsc.edu/\\\ngoldenPath/mm39/bigZips/genes/refGene.gtf.gz",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Alignment to The Reference Genome</span>"
+    ]
+  },
+  {
+    "objectID": "seqAlign.html#generating-indexes",
+    "href": "seqAlign.html#generating-indexes",
+    "title": "5  Alignment to The Reference Genome",
+    "section": "5.2 Generating Indexes",
+    "text": "5.2 Generating Indexes\n\nWe must first generate an index of the genome we want to align to, so that there tools can efficently map over millions of sequences\n\ncd hg38/\n\nSTAR --runMode genomeGenerate \\\n--genomeDir star_index \\\n--genomeFastaFiles hg38.fa \\\n--sjdbGTFfile hg38.refGene.gtf \\\n--runThreadN 40",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Alignment to The Reference Genome</span>"
+    ]
+  },
+  {
+    "objectID": "seqAlign.html#alignment-using-star",
+    "href": "seqAlign.html#alignment-using-star",
+    "title": "5  Alignment to The Reference Genome",
+    "section": "5.3 Alignment using STAR",
+    "text": "5.3 Alignment using STAR\n\nCheck the following trial script whether it is working or not by executing it on the terminal.\nGo back one directory upward of trim_galore.\n\nfor filename in trim_galore/fastq/*_R1_val_1.fq.gz\ndo\nbase=$(basename $filename _R1_val_1.fq.gz)\necho \"Running alignment for ${base} with STAR\"\ndone\n vim star.sh\n\nInsert the following script by pressing ‘I’ in your keyboard (meaning insert). Paste the following script. Press Esc and then type :wq to save. Later make the file executable.\n\n chmod +x star.sh\n bash star.sh\n#!/bin/bash/\necho \"Starting Alignment\"\nfor filename in trim_galore/fastq/*_R1_val_1.fq.gz\ndo\nbase=$(basename $filename _R1_val_1.fq.gz)\necho \"Running alignment for ${base} with STAR\"\nSTAR --runMode alignReads --outSAMtype BAM SortedByCoordinate \\\n--readFilesCommand zcat\\ \n--genomeDir ~/hg38/star_index \\\n--outFileNamePrefix output/${base} \\\n--quantMode GeneCounts \\\n--readFilesIn trim_galore/fastq/${base}_R1_val_1.fq.gz\\\ntrim_galore/fastq/${base}_R2_val_2.fq.gz \\\n--runThreadN 20\ndone\n\nThis process will generate a directory ‘output’.\n‘output’ folder will contain files with the naming pattern: “sortedByCoord.out.bam”.\nThese files would be used in the next step of featureCount.",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Alignment to The Reference Genome</span>"
+    ]
+  },
+  {
+    "objectID": "seqAlign.html#run-featurecount",
+    "href": "seqAlign.html#run-featurecount",
+    "title": "5  Alignment to The Reference Genome",
+    "section": "5.4 Run featureCount",
+    "text": "5.4 Run featureCount\ncd output/\n\nmkdir aligned_bam/\n\nmv *.bam aligned_bam/\n\nmkdir featureCount/\n\nfeatureCounts -p -T 4 -a ~/hg38/hg38.refGene.gtf \\ \n-o featureCount/final_counts_all.txt -g 'gene_name'\\\naligned_bam/*.out.bam\n\n-p This is only applicable for paired-end reads. -T specifies the number (n) of threads to be used. -a is the genome annotation file (example_genome_annotation.gtf). -o specifies the name of the output file, which includes the read counts (example_featureCounts_output.txt).",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Alignment to The Reference Genome</span>"
+    ]
+  },
+  {
+    "objectID": "seqAlign.html#run-multiqc",
+    "href": "seqAlign.html#run-multiqc",
+    "title": "5  Alignment to The Reference Genome",
+    "section": "5.5 Run multiqc",
+    "text": "5.5 Run multiqc\nmultiqc output/ --outdir multiqc_all\n\nIt creates a html file compiling all the alignment data.\nTransfer featurecount and multiqc files to the local computer for further analysis.\nIn the next section we shall discuss about differential gene expression analysis in RStudio.",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Alignment to The Reference Genome</span>"
+    ]
+  },
+  {
+    "objectID": "deseq.html",
+    "href": "deseq.html",
+    "title": "6  Differential gene expression analysis",
+    "section": "",
+    "text": "6.1 Analysis using DESeq2",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Differential gene expression analysis</span>"
+    ]
+  },
+  {
+    "objectID": "deseq.html#analysis-using-deseq2",
+    "href": "deseq.html#analysis-using-deseq2",
+    "title": "6  Differential gene expression analysis",
+    "section": "",
+    "text": "Here, we are going to perform differential gene expression analysis using DESeq2.\nBefore this exercise, you are recommended to have basic R programming knowledge and data visualization skill. For that you can refer to my workshop material.\n\n#===============================================================\n# Install packages\n#===============================================================\n# Install bioconductor packages.\nbioconductor_packages &lt;- c(\n  'DESeq2', 'clusterProfiler',\n  'biomaRt', 'org.Hs.eg.db',\n  'org.Mm.eg.db', 'enrichplot'\n)\n\nif (!requireNamespace(\"BiocManager\", quietly = TRUE))\n  install.packages(\"BiocManager\")\nBiocManager::install(bioconductor_packages)\n\n# Install CRAN packages.\ncran_packages &lt;- c(\n  'tidyverse', 'pheatmap',\n  'msigdbr', 'RColorBrewer',\n  'ggrepel'\n)\ninstall.packages(cran_packages)\n#===============================================================\n# Load the packages\n#===============================================================\nlibrary(DESeq2)\nlibrary(ggplot2)\nlibrary(pheatmap)\nlibrary(RColorBrewer)\n\n#===============================================================\n# Import data\n#===============================================================\n# Import gene counts table generated from featureCounts\n# - skip first row (general command info)\n# - make row names the gene identifiers\ncountdata &lt;- read.table(\"final_counts_all.txt\", \n                        header = TRUE, skip = 1, \n                        row.names = 1)\nhead(countdata)\n# Remove .bam from column identifiers\ncolnames(countdata) &lt;- gsub(\"Aligned.sortedByCoord.out.bam\",\n                            \"\",\n                            colnames(countdata), \n                            fixed = T)\nncol(countdata)\n#Take only expression values\ncountdata &lt;- countdata[ ,c(6:11)]\nhead(countdata)\n#===============================================================\n# Convert to matrix\n#===============================================================\ncountdata &lt;- as.matrix(countdata)\nhead(countdata)\n# Assign condition (first three are control,\n# second three contain the Knock-Out)\ncondition &lt;- factor(c(rep(\"Control\", 3),\n                      rep(\"Knock-Out\", 3)))\nhead(countdata)\n#===============================================================\n# Prepare DESeqDataSet\n#===============================================================\n# Create a coldata frame and instantiate the DESeqDataSet.\n#See ?DESeqDataSetFromMatrix\n(coldata &lt;- data.frame(row.names=colnames(countdata),\n                       condition))\nhead(coldata)\ndds &lt;- DESeqDataSetFromMatrix(countData=countdata,\n                              colData=coldata,\n                              design=~condition)\ndds$condition\n# Determining the directionality of comparison.\ndds$condition &lt;- relevel(dds$condition, ref = \"Control\")\n#===============================================================\n# Run the DESeq2 pipeline\n#===============================================================\ndds &lt;- DESeq(dds)\ndds\n# Sample level QC by PCA and hierarchical clustering methods\n# Transform normalized counts using the rlog transformation\n# Transform counts for data visualization\nrld &lt;- rlog(dds, blind=TRUE)\n#===============================================================\n# Principal components analysis (PCA)\n#===============================================================\n# Plot PCA \n# Save the correlation plot\njpeg(filename = \"PCA_plot.jpg\",\n     height = 4,width = 6,units = \"in\",res = 600)\nplotPCA(rld, intgroup=\"condition\")+ theme_light()\ndev.off()\n#===============================================================\n#Hierarchical Clustering\n#===============================================================\nrld_mat &lt;- assay(rld)\n# Extract the rlog matrix from the object\nrld_mat &lt;- assay(rld)\n# Compute pairwise correlation values\nrld_cor &lt;- cor(rld_mat)\n# Plot heatmap\npheatmap(rld_cor)\nheat.colors &lt;- brewer.pal(6, \"Greens\")\n# Save the correlation plot\njpeg(filename = \"Correlation_plot.jpg\",\n     height = 4,width = 6,units = \"in\",res = 600)\npheatmap(rld_cor, color = heat.colors,fontsize = 10, \n         fontsize_row = 10, height=20)\ndev.off()\n#===============================================================\n# Get differential expression results\n#===============================================================\nresults &lt;- results(dds, pAdjustMethod = \"fdr\", alpha = 0.05)\nhead(results)\nsummary(results)\n# Generate MA plot\njpeg(\"MA_plot.jpg\", units=\"in\", \n     width=7, height=5, res = 600)\nplotMA(results)\ndev.off()\n#===============================================================\n# Convert Gene Symbol to multiple IDs\n#===============================================================\n# Human genome database (Select the correct one)\nlibrary(org.Hs.eg.db) \n\n# Add gene full name\nresults$description &lt;- mapIds(x = org.Hs.eg.db,\n                              keys = row.names(results),\n                              column = \"GENENAME\",\n                              keytype = \"SYMBOL\",\n                              multiVals = \"first\")\n\n# Add ENTREZ ID\nresults$entrez &lt;- mapIds(x = org.Hs.eg.db,\n                         keys = row.names(results),\n                         column = \"ENTREZID\",\n                         keytype = \"SYMBOL\",\n                         multiVals = \"first\")\n\n# Add ENSEMBL\nresults$ensembl &lt;- mapIds(x = org.Hs.eg.db,\n                          keys = row.names(results),\n                          column = \"ENSEMBL\",\n                          keytype = \"SYMBOL\",\n                          multiVals = \"first\")\n\nhead(results)\n# Order by adjusted p-value\nres &lt;- results[order(results$padj), ]\n\n# Merge with normalized count data\nresdata &lt;- merge(as.data.frame(counts(dds, normalized=TRUE)),\n                 as.data.frame(res),\n                 by=\"row.names\", sort=FALSE)\nhead(resdata)\nnames(resdata)[1] &lt;- \"Gene\"\nhead(resdata)\n\n#To remove rows containing NA and write as csv file\nlibrary(tidyverse)\nresdata1 &lt;- resdata %&gt;% drop_na()\nwrite.csv(resdata1, file=\"diff_KO_vs_Control.csv\",\n          row.names = F)\n\n# Subset Upregulated and Downregulated genes\nupreg &lt;- resdata1 %&gt;%\n  dplyr::filter(log2FoldChange &gt; 0 & padj &lt; 0.05)\n  \ndownreg &lt;- resdata1 %&gt;%\n  dplyr::filter(log2FoldChange &lt; 0 & padj &lt; 0.05)\n\nwrite.csv(upreg, file = \"KO_upregulated_genes.csv\", \n          row.names = F)\nwrite.csv(downreg, file = \"KO_downregulated_genes.csv\", \n          row.names = F)\n\n# Gather Log-fold change and FDR-corrected pvalues from DESeq2 results\n# - Change pvalues to -log10 (1.3 = 0.05)\ndata &lt;- data.frame(gene = row.names(res),\n                   pval = -log10(res$padj), \n                   lfc = res$log2FoldChange)\n\n# Remove any rows that have NA as an entry\ndata &lt;- na.omit(data)\n\n# Color the points which are up or down log2(FC=1.5)= 0.58,\n# -log10(P-adj=0.05)=1.3\n## If fold-change &gt; 0.58 and pvalue &gt; 1.3 (Increased significant)\n## If fold-change &lt; 0.58 and pvalue &gt; 1.3 (Decreased significant)\ndata &lt;- mutate(data, \ncolor = case_when(data$lfc &gt; 0 & data$pval &gt; 1.3 ~ \"Increased\",\n                  data$lfc &lt; 0 & data$pval &gt; 1.3 ~ \"Decreased\",\n                  data$pval &lt; 1.3 ~ \"nonsignificant\"))\n\n\nsummary(data)\nhead(data)\n# Make a basic ggplot2 object with x-y values\nvol &lt;- ggplot(data, aes(x = lfc, y = pval, color = color))\n\n\n# Add ggplot2 layers\np &lt;- vol+ \n  geom_point(size = 0.5, alpha = 0.4, na.rm = T) +\n  scale_color_manual(name = \"Directionality\",\n                     values = c(Increased = \"deepskyblue4\", \n                                Decreased = \"deepskyblue2\", \n                                nonsignificant = \"gray80\")) +\n  theme_classic() + # change overall theme\n  theme(legend.position = \"none\") + # change the legend\n  xlab(expression(log[2](\"KO\" / \"Control\"))) + \n  # Change X-Axis label\n  ylab(expression(-log[10](\"adjusted p-value\"))) + \n  # Change Y-Axis label\n  scale_y_continuous(trans = \"log1p\")+\n  # Scale yaxis due to large p-values\n  geom_hline(yintercept = 1.3, \n             colour = \"red\",\n             linetype=\"dashed\")\n  # Add p-adj value cutoff horizontal line\n  #geom_vline(aes(xintercept=0.58), \n              colour=\"gray60\",\n              linetype=\"dashed\")+\n  #geom_vline(aes(xintercept=-0.58), \n              colour=\"gray60\", \n              linetype=\"dashed\")+\n  #xlim(-2.5, 2.5)\n#Base vocano plot\np\n\nlibrary(ggrepel)\n#If few selected genes need to be annotated in the volcano plot\np1 &lt;- p+ geom_text_repel(data = data %&gt;% \n                           filter(gene %in% c(\"HES5\", \"RBPJ\",\n                                              \"MKI67\", \"AURKB\")),\n                         aes(label = gene, x = lfc, y = pval), \n                         box.padding = unit(.7, \"lines\"),\n                         hjust= 0.30,\n                         segment.color = 'black',\n                         colour = 'black')\n#View the volcano  plot\np1\n\n#If want to plot top 10 differentially expressed genes\np2 &lt;- p+ geom_text_repel(data=head(data, 10), aes(label=gene),\n                         box.padding = unit(.5, \"lines\"),\n                         hjust= 0.30,\n                         segment.color = 'black',\n                         max.overlaps = Inf,\n                         colour = 'black')\np2\n\n# Save the volcano plot\nggsave(\n  \"volcano_diff_KO_vs_Control.jpg\",\n  p1,\n  width = 6.00,\n  height = 5.00,\n  dpi = 600\n)",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Differential gene expression analysis</span>"
+    ]
+  },
+  {
+    "objectID": "deseq.html#pathway-enrichment-analysis",
+    "href": "deseq.html#pathway-enrichment-analysis",
+    "title": "6  Differential gene expression analysis",
+    "section": "6.2 Pathway Enrichment Analysis",
+    "text": "6.2 Pathway Enrichment Analysis\n\nPathway enrichment analysis is a statistical method by which we can predict what biological pathways are enriched in a given gene list.\nThere are two statistical test that can be performed.\n\n\nStatistical over-representation test \nStatistical enrichment test\n\n\nTo know more about these tests you may refer to Nature Protocol\n\n\n6.2.1 Statistical Over-representation Analysis\nlibrary(clusterProfiler)\nlibrary(org.Hs.eg.db)\nlibrary(enrichplot)\nlibrary(tidyverse)\nlibrary(msigdbr)\n\n# Import the data\nres &lt;- read.csv(file = \"diff_KO_vs_Control.csv\", \n                header = T, row.names = 1)\ndata &lt;- data.frame(gene = row.names(res),\n                   pval = -log10(res$padj), \n                   lfc = res$log2FoldChange)\n#===============================================================\n# GO over-representation analysis (ORA) using enrichGO\n#===============================================================\n#Filter the genes which are upregulated in KO\ngeneList &lt;- data %&gt;% dplyr::filter(lfc &gt;0 & pval &gt; 1.3) \n\nego &lt;- enrichGO(gene          = geneList$gene,\n                OrgDb         = org.Hs.eg.db, # or Org.Hs.eg.db\n                ont           = \"ALL\", \n                #one of “BP”, “MF”, “CC” or “ALL”\n                pAdjustMethod = \"fdr\", \n                #one of “bonferroni”, “BH”, “BY”, “fdr”, “none”\n                pvalueCutoff  = 0.01,\n                qvalueCutoff  = 0.05,\n                keyType = \"SYMBOL\", \n                #“ENSEMBL”, “ENTREZID”, “SYMBOL”\n                readable      = TRUE)\nwrite.csv(ego@result, \n          file = \"GO_upregulated_clusterprofiler.csv\", \n          row.names = F)\n# Plot \njpeg(filename = \"Upreg_enrichment.jpg\", \n     width = 8, height = 6, units = \"in\",\n     res = 600)\ndotplot(ego)+ \nlabs(title = \"Functional enrichment of upregulated genes\")\ndev.off()\n\n# Few other plots\nbarplot(ego)\nupsetplot(ego)\n\n#Filter the genes which are downregulated in KO\ngeneList_down &lt;- data %&gt;% dplyr::filter(lfc &lt;0 & pval &gt; 1.3) \n\nego_down &lt;- enrichGO(gene          = geneList_down$gene,\n                     OrgDb         = org.Hs.eg.db, \n                     # or Org.Mm.eg.db\n                     ont           = \"ALL\", \n                     #one of “BP”, “MF”, “CC” or “ALL”\n                     pAdjustMethod = \"fdr\", \n                     #“bonferroni”, “BH”, “BY”, “fdr”, “none”\n                     pvalueCutoff  = 0.01,\n                     qvalueCutoff  = 0.05,\n                     keyType = \"SYMBOL\", \n                     #“ENSEMBL”, “ENTREZID”, “SYMBOL”\n                     readable      = TRUE)\n\nhead(ego_down@result)\nwrite.csv(ego_down@result, \n          file = \"GO_downregulated_clusterprofiler.csv\", \n          row.names = F)\n##Plot \njpeg(filename = \"Downreg_enrichment.jpg\", \n     width = 8, height = 6, units = \"in\",\n     res = 600)\ndotplot(ego_down)+ \nlabs(title = \"Functional enrichment of downregulated genes\")\ndev.off()\n\nbarplot(ego_down)\nupsetplot(ego_down)\n\n#===============================================================\n# over-representation analysis (ORA) using MSigDb gene sets\n#===============================================================\nm_ont &lt;- msigdbr(species = \"Homo sapiens\", category = \"C5\") %&gt;% \n  select(gs_name, gene_symbol)\nhead(m_ont)\n\n# Upregulated genes functional enrichment analysis\nem &lt;- enricher(geneList$gene, TERM2GENE=m_ont)\nhead(em)\n\nbarplot(em)\ndotplot(em)\nupsetplot(em)\n\n# Downregulated genes functional enrichment analysis\n\ned &lt;- enricher(geneList_down$gene, TERM2GENE=m_ont)\nbarplot(ed)\ndotplot(ed)\nupsetplot(ed)\n\n\n6.2.2 Statistical Enrichment Analysis\n\nThe most used tool for statistical enrichment test is GSEA.\nTo know more about GSEA you may refer to Nature Protocol\nHowever, here we shall perform GSEA in R which is very easy and fast.\n\nlibrary(clusterProfiler)\nlibrary(enrichplot)\nlibrary(tidyverse)\nlibrary(msigdbr)\n\ngene.list &lt;- resdata1 %&gt;%\n  dplyr::mutate(Score = -log10(padj)* sign(log2FoldChange))%&gt;%\n  dplyr::select(symbol, Score)\n\n# Make the rank file\nranks &lt;- deframe(gene.list)\nhead(ranks)\n# Set decreasing order\ngeneList = sort(ranks, decreasing = TRUE)\n#===============================================================\n# Perform GSEA\n#===============================================================\nem2 &lt;- GSEA(geneList, TERM2GENE = m_ont)\nhead(em2)\ngsea_result &lt;- em2@result\n\n# Save the GSEA result\nwrite.csv(gsea_result, \n          file = \"GSEA_Ontology.csv\", \n          row.names = F)\n\n# Save the GSEA Plot\njpeg(filename = \"GSEA_plot.jpg\", \n     width = 10, height = 6, units = \"in\",\n     res = 600)\ngseaplot2(em2, geneSetID = 2, title = em2$Description[2])\ndev.off()\n    \n\n\n6.2.3 Divergent Lollipop Chart\nlibrary(tidyverse)\nlibrary(msigdbr)\nlibrary(clusterProfiler)\nlibrary(enrichplot)\n#===============================================================\n#Import the data\n#===============================================================\nres &lt;- read.csv(file = \"diff_KO_vs_Control.csv\", \n                header = T)\nhead(res)\ngene.list &lt;- res %&gt;%\n  dplyr::mutate(Score = -log10(padj)* sign(log2FoldChange))%&gt;%\n  dplyr::select(symbol, Score)\n#Make the rank file\nranks &lt;- deframe(gene.list)\nhead(ranks)\n\n#Download MSigDb ontology gene sets\n#===============================================================\nm_ont &lt;- msigdbr(species = \"Homo sapiens\", \n                 category = \"C5\") %&gt;% \n  select(gs_name, gene_symbol)\nhead(m_ont)\n#Download MSigDb Cell Type Signature gene sets\n#===============================================================\nm_cell &lt;- msigdbr(species = \"Homo sapiens\", \n                  category = \"C8\") %&gt;% \n  select(gs_name, gene_symbol)\nhead(m_cell)\n#decreasing order\ngeneList = sort(ranks, decreasing = TRUE)\n\n#Perform GSEA using ONTOLOGY gene sets\n#===============================================================\nem2 &lt;- GSEA(geneList, TERM2GENE = m_ont)\nhead(em2@result)\n\n#Perform GSEA using CELL TYPE gene sets\n#===============================================================\nem3 &lt;- GSEA(geneList, TERM2GENE = m_cell)\nhead(em3@result)\n\n# Data wrangling\n#===============================================================\ncelltype_pos &lt;- em3@result %&gt;%\n  mutate(gene_set = \"MSigDB Cell Type Signature Gene Set\")%&gt;%\n  top_n(n = 5, wt = NES)\ncelltype_neg &lt;- em3@result %&gt;%\n  mutate(gene_set = \"MSigDB Cell Type Signature Gene Set\")%&gt;%\n  top_n(n = 5, wt = -NES)\nont_pos &lt;- em2@result %&gt;%\n  mutate(gene_set = \"MSigDB Gene Ontology Gene Set\")%&gt;%\n  top_n(n = 5, wt = NES)\nont_neg &lt;- em2@result %&gt;%\n  mutate(gene_set = \"MSigDB Gene Ontology Gene Set\")%&gt;%\n  top_n(n = 5, wt = -NES)\n\ncelltype_merge &lt;- rbind(celltype_pos, celltype_neg)\nGO_merge &lt;- rbind(ont_pos, ont_neg)\nmy_data &lt;- rbind(celltype_merge, GO_merge) |&gt;\n  mutate(ID = fct_reorder(ID, NES))\n# Round up NES values upto 3 digits\nmy_data$NES &lt;- round(my_data$NES, 3) \nhead(my_data)\n\n#Divergent lollipop chart\n#===============================================================\np &lt;- ggplot(my_data,\n            aes(x = ID,\n                y = NES))+\n  geom_segment(aes(y = 0,\n                   x = ID,\n                   xend = ID,\n                   yend = NES),\n               color = \"skyblue\")+\n  geom_point(stat = \"identity\", \n             aes(size = abs(NES), \n                 fill = p.adjust),\n             shape = 21)+\n  coord_flip()+\n  scale_fill_viridis_b()+\n  theme_light()+\n  theme(panel.border = element_blank(),\n        panel.grid.minor.x = element_blank(),\n        axis.ticks = element_blank(),\n        strip.background = element_rect(fill = \"skyblue\"),\n        strip.text = element_text(color = \"#4a235a\"))+\n  labs(title = \"Comparison of KO vs Control\",\n       subtitle = \"Gene Set Enrichment Analysis\",\n       size = \"NES\",\n       x = \"\")+\n  facet_grid(gene_set ~.,space=\"free\", scales=\"free\")\np\n\n#Save the file\n#===============================================================\njpeg(filename = \"KO_GSEA_chart.jpg\", \n     height = 8, width = 14,\n     units = \"in\", res = 600)\np\ndev.off()",
+    "crumbs": [
+      "RNA Sequencing Analysis",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Differential gene expression analysis</span>"
+    ]
+  },
+  {
+    "objectID": "download.html",
+    "href": "download.html",
+    "title": "7  Download GEO data",
+    "section": "",
+    "text": "7.1 Download SRA files\nBash Script",
+    "crumbs": [
+      "Circular RNA analysis",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Download GEO data</span>"
+    ]
+  },
+  {
+    "objectID": "download.html#download-sra-files",
+    "href": "download.html#download-sra-files",
+    "title": "7  Download GEO data",
+    "section": "",
+    "text": "Download latest SRA-tool\n\nwget --output-document sratoolkit.tar.gz\\\nhttp://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz\n\nsratoolkit.tar.gz file will be downloaded.\n\ntar -xvzf sratoolkit.tar.gz\n\nexport PATH=$PATH:/home/basu/sratoolkit.3.0.1-ubuntu64/bin\n\nCheck whether the tool is working or not by executing the following command\n\nprefetch -h\n\nNow let us download the following data from GEO. Transcriptional profiling of adult retinal ganglion cells during optic nerve regeneration [GSE142881: RGC injury dataset]\nCreate a script file with vim editor download.sh and paste the following script into that.\n\nvim download.sh\n\n\n\n\n\n\nNote\n\n\n\nvim download.sh → insert (press I in your keyboard) → esc → :wq → chmod +x download.sh\n\n\n\n#!/bin/sh\n# Downloading the SRA files using Prefetch command\nfor i in $(seq 10821165 10821205)\ndo\nprefetch -v SRR$i --max-size 50G\ndone\nchmod +x download.sh\n\nExecute the script by typing\n\nnohup bash download.sh",
+    "crumbs": [
+      "Circular RNA analysis",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Download GEO data</span>"
+    ]
+  },
+  {
+    "objectID": "download.html#convert-.sra-file-to-.fastq-files",
+    "href": "download.html#convert-.sra-file-to-.fastq-files",
+    "title": "7  Download GEO data",
+    "section": "7.2 Convert .sra file to .fastq files",
+    "text": "7.2 Convert .sra file to .fastq files\nmkdir fastq/\n\nMake another script loop.sh to convert .sra file to .fastq file\n\nvim loop.sh\nBash script\n#!/bin/sh\n# convert using fasterq-dump command\nfor i in $(seq 10821165 10821205)\ndo\nfasterq-dump --split-files --skip-technical -e 16 SRR$i --outdir fastq\ndone\nchmod +x loop.sh\nnohup bash loop.sh",
+    "crumbs": [
+      "Circular RNA analysis",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Download GEO data</span>"
+    ]
+  },
+  {
+    "objectID": "download.html#make-gzip-compression-of-the-fastq-files",
+    "href": "download.html#make-gzip-compression-of-the-fastq-files",
+    "title": "7  Download GEO data",
+    "section": "7.3 Make gzip compression of the fastq files",
+    "text": "7.3 Make gzip compression of the fastq files\ncd fastq/\ngzip *.fastq\n\n\n\n\n\n\nNote\n\n\n\nThe next step would be checking the quality of the fastq files. See Chapter 4 for the details of fastqc commands and quality check. I would recommend to refer to that section before proceeding to quality control of fastq data.\n\n\n\nIn the next section we are going to install packages and dependencies.",
+    "crumbs": [
+      "Circular RNA analysis",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Download GEO data</span>"
+    ]
+  },
+  {
+    "objectID": "circpackages.html",
+    "href": "circpackages.html",
+    "title": "8  Install CIRIquant and CIRCexplorer3",
+    "section": "",
+    "text": "8.1 CIRIquant",
+    "crumbs": [
+      "Circular RNA analysis",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Install CIRIquant and CIRCexplorer3</span>"
+    ]
+  },
+  {
+    "objectID": "circpackages.html#ciriquant",
+    "href": "circpackages.html#ciriquant",
+    "title": "8  Install CIRIquant and CIRCexplorer3",
+    "section": "",
+    "text": "Complete documentation can be found in CIRIquant.\nMy purpose is to show some of the basic scripts to run CIRIquant repeatedly.\nCreate an environment quant to install all dependencies and packages.\n\n\n\n\n\n\n\nWarning\n\n\n\nciriquant 1.1.2 has requirement pysam==0.15.2 ciriquant 1.1.2 has requirement PyYAML==5.1.1 ciriquant 1.1.2 has requirement python==2.7\n\n\nconda create -n quant python=2.7 PyYAML=5.1.1 pysam=0.15.2\nconda activate quant\nconda install -c bioconda bwa\nconda install -c bioconda hisat2\nconda install -c bioconda stringtie\npip install ciriquant\n\nMake sure all the following tools are installed i.e., bwa, hisat2, samtools, stringtie\nAnd finally check\n\nCIRIquant -h",
+    "crumbs": [
+      "Circular RNA analysis",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Install CIRIquant and CIRCexplorer3</span>"
+    ]
+  },
+  {
+    "objectID": "circpackages.html#circexplorer3",
+    "href": "circpackages.html#circexplorer3",
+    "title": "8  Install CIRIquant and CIRCexplorer3",
+    "section": "8.2 CIRCexplorer3",
+    "text": "8.2 CIRCexplorer3\n\nCreate a Python 2 environment named py2, install Python 2.7\nInstall circexplorer2 and required softwares (python version 2.7.1 encouraged)\n\nconda create --name py2 python=2.7\nconda activate py2\nconda install circexplorer2 --channel bioconda\nconda install -c bioconda bowtie==1.0.0 \nconda install -c bioconda samtools==0.1.18\nconda install -c bioconda hisat2\nconda install -c bioconda stringtie\nconda install -c bioconda tophat==2.1.0\n\nInstall CLEAR_QUANT\n\nwget https://github.com/YangLab/CLEAR/archive/refs/heads/master.zip\ncd CLEAR-master/\npython setup.py install",
+    "crumbs": [
+      "Circular RNA analysis",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Install CIRIquant and CIRCexplorer3</span>"
+    ]
+  },
+  {
+    "objectID": "bulk.html",
+    "href": "bulk.html",
+    "title": "RNA Sequencing Analysis",
+    "section": "",
+    "text": "In this section of the book, you’ll learn the entire workflow of RNA-Seq data analysis. 1. It starts with quality checking of the fastq files using fastqc. 2. The sequencing data is then aligned to the reference genome using STAR. The mapping QC is performed to check percentage of alignment to the reference genome. 3. Expression count is then calculated using featureCounts. 4. DESeq2 is used for calculating differntial gene expression (DGE) analysis. 5. Functional enrichment of the DGE is performed using GSEA.",
+    "crumbs": [
+      "RNA Sequencing Analysis"
+    ]
+  },
+  {
+    "objectID": "circ.html",
+    "href": "circ.html",
+    "title": "Circular RNA analysis",
+    "section": "",
+    "text": "In this section of the book, I shall introduce you to the concept of circular RNA and its identification from RNA-Seq data.\nCircular RNAs are product of back-splicing event where it forms a covalently closed circular structure of RNA.\nThese class of RNA does not have 5’ cap or 3’ poly-A-tail.\nTo identify the circular RNA from RNA-Seq data, several algorithms have been developed that mostly detect the back-splice junction (BSJ) region.\nHere, I shall introduce you with two identification tools i.e., CIRIquant and CIRCexplorer3.",
+    "crumbs": [
+      "Circular RNA analysis"
+    ]
+  }
+]
