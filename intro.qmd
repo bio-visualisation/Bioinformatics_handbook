@@ -1,0 +1,20 @@
+# Introduction {.unnumbered}
+
+## Biological data analysis
+
+This is a handbook of data analysis in the field of Biology. The main aim of this text is to introduce the concepts of the followings.
+
+1. Introduction to unix
+2. Introduction to R for Biologists
+3. Data wrangling and data visualization
+3. RNA-Seq analysis
+4. Single-cell RNA-Seq analysis
+
+By virtue of its requirement there is also a need to introduce
+
+5. Managing Conda environment
+6. Git and Github
+7. Shiny web application
+8. Containerized Bioinformatics
+
+In due course, I will refer to the relevant resources for further reading. There are enough books which provide with detailed introduction and theory behind every topic. My purpose is not to repeat the same but to give you a full flavor of hands-on bioinformatics with lots of unix commands and R code blocks and resulting data visualization. I will try to make the codes as simple as possible and add meaning of the code block as and when required. Still I urge you that in any section or any code block that you cannot execute or becoming difficult to understand please contact me. I am always available to help.

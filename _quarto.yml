@@ -1,0 +1,43 @@
+project:
+  type: book
+
+book:
+  title: "Codes: A Journey to Dive into Biological Information"
+  author: "Budhaditya Basu"
+  date: "02/26/2023"
+  reader-mode: true
+  page-footer: 
+    left: |
+      Codes: A Journey to Dive into Biological Information was written by Budhaditya Basu
+    right: |
+      This book was built with <a href="https://quarto.org/">Quarto</a>.
+  
+  cover-image: cover.jpg
+  favicon: cover.jpg
+  
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - part: bulk.qmd
+      chapters: 
+        - conda.qmd
+        - unix.qmd
+        - package.qmd
+        - seqQC.qmd
+        - seqAlign.qmd
+        - deseq.qmd
+    - part: circ.qmd
+      chapters:
+        - download.qmd
+        - circpackages.qmd
+
+
+format:
+  html:
+    theme: cosmo
+    code-fold: true
+  pdf:
+    documentclass: scrreprt
+
+
+

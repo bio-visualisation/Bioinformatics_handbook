@@ -1,0 +1,8 @@
+# Preface {.unnumbered}
+
+
+  For last four years I have been actively involved in all bioinformatics projects in our lab. In the beginning of my career I have never imagined myself to become a bioinformatician. I was and am a trained molecular biologist. Cell culture, cloning, animal handling and gene expression studies are my domain area. When I joined my lab as a graduate student I saw that my seniors and PI were utterly frustrated with the bioinformatics service provided by the well known NGS analytics industries in India. Industries never paid attention to the biological questions being addressed by the project. There was a real need of a person who had the necessary computational expertise to handle the NGS data as well as understands the biological questions thoroughly. So I invested time during the lab hours to understand the biological questions and learned new molecular techniques. When I came to hostel and mostly during weekends I invested full time to learn about NGS analysis. Weekends have shaped me what I am today. Obviously that came at a cost of personal life. I owe a lot to my closer ones who always had a complaint that I never gave them my time.
+
+  Here, in this book I have documented my journey to stitch the code blocks and several resources which I think may help others who are on the same path. I believe that this text will enable the learners to transition from learning to do their own biological data analysis. 
+
+

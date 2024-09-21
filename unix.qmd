@@ -1,0 +1,37 @@
+# Connect to a remote unix computer
+
+## Getting Started
+
+In this section we shall learn how to connect to a unix machine with `ssh` and run few basic commands. Later I shall introduce with the concept of bash scripting.
+
+
+
+- Fire up your terminal and execute the following code.
+
+```bash
+ssh userid@ipaddress
+```
+
+- Here userid can be a short name which was used to create an account on the HPC server. Example: rohit
+
+- IP address is a numerical identifier of a system. Example: 213.253.210.118
+
+- Please ask your network administrator for these details before proceeding.
+
+- Next it would ask for password
+
+```bash
+userid@ipaddress's password:
+```
+
+- After I entered my password it displayed like this.
+
+```bash
+(base) basu@darwin:~$ 
+```
+
+:::{.callout-tip}
+If you are new to unix computer, then you are recommended to be familiar with the basic commands of unix.
+Check this link for [Basic unix commands](https://github.com/raynamharris/Shell_Intro_for_Transcriptomics/blob/master/lessons/01_Intoducing_Shell.md){target="_blank"}<br>
+If you are not sure what a command means/does? Type it here and get a very easy to understand explanation. [explainshell.com](https://explainshell.com/){target="_blank"}
+:::

@@ -1,0 +1,100 @@
+# Conda environment
+
+## Introduction
+
+- conda is a package manager where users can easily find and install thousands of packages.
+
+- It is also an environment manager which can create a separate environment within a few seconds which runs on different dependencies.
+
+- It is compatible with multiple OS. 
+
+- [Miniconda](https://docs.conda.io/en/latest/miniconda.html#linux-installers){target="_blank"} (minimal version of conda) can be downloaded as a script file (.sh) from the given link and installed using the following command.
+
+- Download Miniconda (file size ~ 2.36 Mb)
+```bash
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+```
+
+- Install Miniconda
+```bash
+bash Miniconda3-latest-Linux-x86_64.sh
+```
+
+![](files/7.jpg){width=100%}
+
+
+- Press ENTER
+
+![](files/8.jpg){width=100%}
+
+
+- Type yes
+
+![](files/9.jpg){width=100%}
+
+- Press ENTER
+
+![](files/10.jpg){width=100%}
+
+
+- This means every time you open your terminal, it will initialize conda by default.
+
+- Type yes. If you wish to reverse it later, you can do it.
+
+- The Miniconda installation process is complete. Close the terminal and open again.
+
+![](files/11.jpg){width=100%}
+
+- (base) at the command prompt indicate conda base environment is active.
+
+- For basic conda commands, you can follow this link. [Conda commands](https://docs.conda.io/projects/conda/en/latest/commands.html){target="_blank"} 
+
+- This installation process would create a directory called miniconda3 which would have all the installed packages as well as the environment dependencies.
+
+:::{.callout-warning}
+Please do not delete 'miniconda3' directory.
+Deleting this directory would remove conda environment.
+:::
+
+## Create a conda environment with required packages
+
+- Here I want to create a conda environment with all packages required for RNA-Seq analysis. The details of the packages will be discussed in the next section.
+
+- ENV Name - rnaSeq
+
+- Packages: fastqc, trim-galore, star, subread, multiqc
+
+- Packages to be installed from bioconda channel.
+
+```bash
+conda create --name rnaSeq -c bioconda fastqc trim-galore star subread multiqc
+```
+
+- The process may take several minutes depending on the network speed.
+
+![](files/12.jpg){width=100%}
+
+```bash
+#List conda environments
+conda env list
+```
+
+![](files/13.jpg){width=100%}
+
+- To activate our desired environment, run the following command.
+
+```bash
+conda activate rnaSeq
+```
+![](files/14.jpg){width=100%}
+
+- Check whether our desired packages are installed or not. For example check trim-galore.
+
+```bash
+conda list | grep trim-galore
+```
+
+![](files/15.jpg){width=100%}
+
+- In the next section, we shall discuss about using remote HPC server.
+

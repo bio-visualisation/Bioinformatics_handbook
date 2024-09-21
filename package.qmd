@@ -1,0 +1,71 @@
+# Package Installation
+
+## Install FastQC
+
+-   The first step of RNA_Seq data analysis is to check the quality of the sequencing data in .fastq/.fq file format.
+
+-   [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/){target="_blank"} is the commonly used tool to perform quality control.
+
+``` bash
+conda install -c bioconda fastqc
+```
+
+-   To check whether installation is complete or not, just type in the terminal the following.
+
+``` bash
+fastqc -h
+```
+
+## Install Trim galore
+
+- [Trim Galore!](https://www.bioinformatics.babraham.ac.uk/projects/trim_galore/){target="_blank"} is a wrapper script to automate quality and adapter trimming as well as quality control.
+
+- If adapter content is found then adapter should be removed using Trim Galore.
+
+``` bash
+conda install -c bioconda trim-galore
+```
+
+- To check the successful installation
+
+``` bash
+trim_galore -help
+```
+
+## Install STAR aligner
+
+- The alignment process involves performing the read alignment using one of several splice-aware alignment tools such as [STAR](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3530905/){target="_blank"} or [HISAT2](https://daehwankimlab.github.io/hisat2/){target="_blank"}. 
+
+- The choice of aligner is often a personal preference and also dependent on the computational resources.
+
+``` bash
+conda install -c bioconda star
+
+STAR -h
+```
+
+## Install subread
+
+- Once alignment is complete, the next step would be to count of aligned reads to each gene.
+
+- `featureCounts` is a part of the subread toolkit which is used for this purpose.
+
+```bash
+conda install -c bioconda subread
+
+featureCounts -h
+```
+
+:::{.callout-note}
+Initial QC to be done using FastQC, followed by trimming with TrimGalore!. Reads will be aligned using STAR and overlaps to be counted with featureCounts. 
+:::
+
+## Install MultiQC
+
+- [MultiQC](https://multiqc.info/){target="_blank"} searches a given directory for analysis logs and compiles a HTML report. It's a general use tool, perfect for summarising the output from numerous bioinformatics tools.
+
+```bash
+conda install -c bioconda multiqc
+
+multiqc -h 
+```

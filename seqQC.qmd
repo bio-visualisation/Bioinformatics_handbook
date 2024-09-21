@@ -1,0 +1,140 @@
+# Quality Control of The Sequencing Reads {#sec-quality}
+
+## Activate conda environment
+
+```bash
+conda activate rnaSeq
+```
+
+
+## Run FastQC
+
+- Raw sequencing data is stored in any one of the formats listed i.e., .fastq/.fastq.gz/.fq.gz
+
+- Quality checking of the raw data is the first step to be performed before proceeding with further analysis.
+
+- Take a look at the example of [a good illumina data](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/good_sequence_short_fastqc.html){target="_blank"}.
+
+- Take a look at the example of [a bad illumina data](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/bad_sequence_fastqc.html){target="_blank"}.
+
+- Now, let's jump to analyse our own data.
+
+```bash
+#Make a directory for the fastq files
+
+mkdir fastq/
+
+#Move all the fastq files into that recently created directory
+
+mv *.fastq.gz fastq/
+```
+
+- Create a directory where fastqc output will be stored
+
+```bash
+mkdir fastqc_out/
+```
+
+- RUN FastQC 
+
+```bash
+fastqc -o fastqc_out/ -t 8 fastq/*.fastq.gz
+
+# -t (--threads) specifies the number of threads for parallel computing
+```
+
+- Check the fastqc output .html files stored in fastqc_out directory. Transfer the .html files to local computer using either [WinSCP](https://winscp.net/eng/index.php){target="_blank"} or [FileZilla](https://filezilla-project.org/){target="_blank"}.
+
+- If adapter content is found or sequence quality is suboptimal then those sequence need to be trimmed using trim_galore.
+
+- Create a directory where trimmed fastq files will be stored.
+
+```bash
+mkdir trim_galore/
+
+```
+
+- If you want to remove the adapter content, run Trim Galore.
+
+## Run Trim Galore!
+
+- Before that we want to check our bash script. Execute the following command and check the output
+
+ ```bash
+for filename in fastq/*_R1.fastq.gz
+do
+base=$(basename $filename _R1.fastq.gz)
+echo "Running alignment for ${base} using STAR"
+done
+ ```
+ 
+ - If everything looks okay then we have create a file, trim-galore.sh
+ 
+ ```bash
+ vim trim-galore.sh
+ ```
+ 
+ - Insert the following script by pressing 'I' in your keyboard (meaning insert). Paste the following script. Press Esc and then type :wq to save. Later make the file executable.
+ 
+ ```bash
+  chmod +x trim-galore.sh
+  
+  bash trim-galore.sh
+ ```
+ 
+ ```bash
+#!/bin/bash/
+for filename in fastq/*_R1.fastq.gz
+do
+base=$(basename $filename _R1.fastq.gz)
+
+trim_galore --illumina --paired -j 8 \
+--fastqc -o trim_galore/ fastq/${base}_R1.fastq.gz\
+fastq/${base}_R2.fastq.gz
+done
+ ```
+
+- --ilumina : Adapter sequence to be trimmed of illumina universal adapter.<br>
+  --paired: Trimming for paired end files.<br>
+  -j :Number of cores to be used for trimming.<br>
+  --fastqc : Once trimming is complete, run fastqc in default mode.<br>
+  -o :Output directory<br>
+  
+:::{.callout-note}
+The output of the above trimming command will have varied read length. For some sequencing data analysis (i.e., CIRI pipeline) it is not advisable to have varied read length. For differential gene expression analysis it is not an issue.
+:::
+
+- In any case, if you require to remove adapter and have uniform read length then we can use `--hardtrim5` option in trim_galore.
+
+```bash
+
+trim_galore -j 8 --hardtrim5 100 -o trim_galore/ fastq/*.fastq.gz
+
+# --hardtrim5 <int> will retain <int> bases from the 5' end of the sequence.
+
+```
+
+- After running trim-galore, it would create .html files which contain QC data and the trimmed fastq files as .fq.gz
+
+- If you want to clean and categorize your data then move the trimmed fastq files to a new directory.
+
+:::{.callout-tip collapse="true"}
+```bash
+cd trim_galore/
+mkdir fastq/
+mv *.fq.gz fastq/
+```
+:::
+
+- Did you notice that all trimmed fastq files have names with a string 'trimmed' or 'val_1'? Next, I want to remove the string 'trimmed' from all file names.
+
+- Here is my solution. But before looking into this you can try your own ways.
+
+:::{.callout-tip collapse="true"}
+```bash
+cd fastq/
+# Now remove the string '_trimmed' from all file names
+
+for file in *;do mv "${file}" "${file/_trimmed/}";done
+```
+:::

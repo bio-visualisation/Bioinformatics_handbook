@@ -1,0 +1,63 @@
+# Install CIRIquant and CIRCexplorer3
+
+## CIRIquant
+
+- Complete documentation can be found in [CIRIquant](https://github.com/bioinfo-biols/CIRIquant).
+
+- My purpose is to show some of the basic scripts to run CIRIquant repeatedly.
+
+- Create an environment `quant` to install all dependencies and packages.
+
+:::{.callout-warning}
+ciriquant 1.1.2 has requirement pysam==0.15.2
+ciriquant 1.1.2 has requirement PyYAML==5.1.1
+ciriquant 1.1.2 has requirement python==2.7
+:::
+
+```bash
+conda create -n quant python=2.7 PyYAML=5.1.1 pysam=0.15.2
+conda activate quant
+conda install -c bioconda bwa
+conda install -c bioconda hisat2
+conda install -c bioconda stringtie
+pip install ciriquant
+```
+
+- Make sure all the following tools are installed i.e., bwa, hisat2, samtools, stringtie
+
+- And finally check
+
+```bash
+CIRIquant -h
+```
+
+## CIRCexplorer3
+
+- Create a Python 2 environment named py2, install Python 2.7
+
+- Install circexplorer2 and required softwares (python version 2.7.1 encouraged)
+
+
+```bash
+conda create --name py2 python=2.7
+conda activate py2
+conda install circexplorer2 --channel bioconda
+conda install -c bioconda bowtie==1.0.0 
+conda install -c bioconda samtools==0.1.18
+conda install -c bioconda hisat2
+conda install -c bioconda stringtie
+conda install -c bioconda tophat==2.1.0
+```
+
+- Install CLEAR_QUANT
+
+```bash
+wget https://github.com/YangLab/CLEAR/archive/refs/heads/master.zip
+cd CLEAR-master/
+python setup.py install
+```
+
+
+
+
+

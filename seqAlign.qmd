@@ -1,0 +1,136 @@
+# Alignment to The Reference Genome
+
+
+## Download reference genome and annotation file
+
+
+- Human reference genome
+ 
+```bash
+mkdir hg38/
+
+cd hg38/
+
+wget http://hgdownload.soe.ucsc.edu/\
+goldenPath/hg38/bigZips/hg38.fa.gz
+
+wget https://hgdownload.soe.ucsc.edu/\
+goldenPath/hg38/bigZips/genes/hg38.refGene.gtf.gz
+```
+ 
+
+- Mouse Reference Genome
+
+```bash
+mkdir mm39/
+
+cd mm39/
+
+wget https://hgdownload.soe.ucsc.edu/\
+goldenPath/mm39/bigZips/mm39.fa.gz
+ 
+wget https://hgdownload.soe.ucsc.edu/\
+goldenPath/mm39/bigZips/genes/refGene.gtf.gz
+```
+
+
+## Generating Indexes
+
+ - We must first generate an index of the genome we want to align to, so that there tools can efficently map over millions of sequences
+
+ ```bash
+ cd hg38/
+ 
+ STAR --runMode genomeGenerate \
+--genomeDir star_index \
+--genomeFastaFiles hg38.fa \
+--sjdbGTFfile hg38.refGene.gtf \
+--runThreadN 40
+
+ ```
+ 
+## Alignment using STAR
+
+- Check the following trial script whether it is working or not by executing it on the terminal.
+
+- Go back one directory upward of trim_galore.
+
+```bash
+for filename in trim_galore/fastq/*_R1_val_1.fq.gz
+do
+base=$(basename $filename _R1_val_1.fq.gz)
+echo "Running alignment for ${base} with STAR"
+done
+
+```
+
+```bash
+ vim star.sh
+ ```
+ 
+ - Insert the following script by pressing 'I' in your keyboard (meaning insert). Paste the following script. Press Esc and then type :wq to save. Later make the file executable.
+ 
+ ```bash
+  chmod +x star.sh
+  bash star.sh
+ ```
+ 
+ ```bash
+ #!/bin/bash/
+echo "Starting Alignment"
+for filename in trim_galore/fastq/*_R1_val_1.fq.gz
+do
+base=$(basename $filename _R1_val_1.fq.gz)
+echo "Running alignment for ${base} with STAR"
+STAR --runMode alignReads --outSAMtype BAM SortedByCoordinate \
+--readFilesCommand zcat\ 
+--genomeDir ~/hg38/star_index \
+--outFileNamePrefix output/${base} \
+--quantMode GeneCounts \
+--readFilesIn trim_galore/fastq/${base}_R1_val_1.fq.gz\
+trim_galore/fastq/${base}_R2_val_2.fq.gz \
+--runThreadN 20
+done
+
+```
+
+- This process will generate a directory 'output'.
+
+- 'output' folder will contain files with the naming pattern: "sortedByCoord.out.bam".
+
+- These files would be used in the next step of featureCount.
+
+## Run featureCount
+
+```bash
+cd output/
+
+mkdir aligned_bam/
+
+mv *.bam aligned_bam/
+
+mkdir featureCount/
+
+featureCounts -p -T 4 -a ~/hg38/hg38.refGene.gtf \ 
+-o featureCount/final_counts_all.txt -g 'gene_name'\
+aligned_bam/*.out.bam
+
+```
+
+- -p This is only applicable for paired-end reads.<br>
+  -T specifies the number (n) of threads to be used.<br>
+  -a is the genome annotation file (example_genome_annotation.gtf).<br>
+  -o specifies the name of the output file, which includes the read counts (example_featureCounts_output.txt).
+  
+## Run multiqc
+
+```bash
+multiqc output/ --outdir multiqc_all
+```
+
+- It creates a html file compiling all the alignment data.
+
+- Transfer featurecount and multiqc files to the local computer for further analysis.
+
+- In the next section we shall discuss about differential gene expression analysis in RStudio.
+ 

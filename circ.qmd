@@ -1,0 +1,19 @@
+# Circular RNA analysis
+
+```{r}
+#| echo: false
+#| out-width: 100%
+
+knitr::include_graphics("files/21.jpg")
+
+```
+
+- In this section of the book, I shall introduce you to the concept of circular RNA and its identification from RNA-Seq data.
+
+- Circular RNAs are product of back-splicing event where it forms a covalently closed circular structure of RNA.
+
+- These class of RNA does not have 5' cap or 3' poly-A-tail.
+
+- To identify the circular RNA from RNA-Seq data, several algorithms have been developed that mostly detect the back-splice junction (BSJ) region.
+
+- Here, I shall introduce you with two identification tools i.e., [CIRIquant](https://github.com/bioinfo-biols/CIRIquant) and [CIRCexplorer3](https://github.com/YangLab/CLEAR).

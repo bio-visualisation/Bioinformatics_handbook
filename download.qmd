@@ -1,0 +1,98 @@
+# Download GEO data
+
+## Download SRA files
+
+- Download latest SRA-tool
+
+```bash
+wget --output-document sratoolkit.tar.gz\
+http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz
+```
+- `sratoolkit.tar.gz` file will be downloaded.
+
+```bash
+tar -xvzf sratoolkit.tar.gz
+
+export PATH=$PATH:/home/basu/sratoolkit.3.0.1-ubuntu64/bin
+```
+
+- Check whether the tool is working or not by executing the following command
+
+```bash
+prefetch -h
+```
+- Now let us download the following data from GEO. Transcriptional profiling of adult retinal ganglion cells during optic nerve regeneration [GSE142881: RGC injury dataset]
+
+- Create a script file with vim editor `download.sh` and paste the following script into that.
+
+```bash
+vim download.sh
+```
+:::{.callout-note}
+vim download.sh → insert (press I in your keyboard) → esc → :wq → chmod +x download.sh
+:::
+
+
+**Bash Script**
+
+```bash
+#!/bin/sh
+# Downloading the SRA files using Prefetch command
+for i in $(seq 10821165 10821205)
+do
+prefetch -v SRR$i --max-size 50G
+done
+```
+
+```bash
+chmod +x download.sh
+```
+
+- Execute the script by typing
+
+```bash
+nohup bash download.sh
+```
+
+## Convert .sra file to .fastq files
+
+```bash
+mkdir fastq/
+```
+- Make another script `loop.sh` to convert .sra file to .fastq file
+
+```bash
+vim loop.sh
+```
+
+**Bash script**
+
+```bash
+#!/bin/sh
+# convert using fasterq-dump command
+for i in $(seq 10821165 10821205)
+do
+fasterq-dump --split-files --skip-technical -e 16 SRR$i --outdir fastq
+done
+```
+
+```bash
+chmod +x loop.sh
+```
+
+```bash
+nohup bash loop.sh
+```
+
+## Make gzip compression of the fastq files
+
+```bash
+cd fastq/
+gzip *.fastq
+```
+
+:::{.callout-note}
+The next step would be checking the quality of the fastq files. See @sec-quality for the  details of fastqc commands and quality check. I would recommend to refer to that section before proceeding to quality control of fastq data.
+:::
+
+- In the next section we are going to install packages and dependencies.

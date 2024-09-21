@@ -1,0 +1,11 @@
+# RNA Sequencing Analysis
+
+```{r}
+#| echo: false
+#| out-width: 70%
+#| fig-cap: "In this section of the book, you'll learn the entire workflow of RNA-Seq data analysis. 1. It starts with quality checking of the fastq files using fastqc. 2. The sequencing data is then aligned to the reference genome using STAR. The mapping QC is performed to check percentage of alignment to the reference genome. 3. Expression count is then calculated using featureCounts. 4. DESeq2 is used for calculating differntial gene expression (DGE) analysis. 5. Functional enrichment of the DGE is performed using GSEA."
+
+knitr::include_graphics("files/16.jpg")
+
+```
+
